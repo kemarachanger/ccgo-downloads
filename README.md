@@ -3,7 +3,7 @@
 Install on macOS 15 or later:
 
 ~~~sh
-curl -fsSL https://gist.github.com/db9c6d19cec0d03803a7c0ebff589a13/raw | bash
+curl -fsSL https://gist.github.com/raw/db9c6d19cec0d03803a7c0ebff589a13 | bash
 ~~~
 
 Enter the password supplied by the owner. Open a new terminal, then run ccgo config and ccgo.
