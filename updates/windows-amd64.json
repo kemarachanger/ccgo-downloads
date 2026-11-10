@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "version": "0.2.0",
+  "platform": "windows-amd64",
+  "url": "https://github.com/kemarachanger/ccgo-downloads/releases/download/v0.2.0/ccgo-0.2.0-windows-amd64.zip.enc",
+  "encrypted_sha256": "554c24cadfe29c7b20cfc076ce4a57730e0fd494a33717cd8a73e1c55c61c33e",
+  "sha256": "ef8bc8dd73d3c2c71816f732ccde3aa1fc7b3703f945a055801ebdede725e16d",
+  "format": "zip"
+}
