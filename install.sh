@@ -9,17 +9,17 @@ ccgo_download_install() (
   os_version="$(sw_vers -productVersion)"
   os_major="${os_version%%.*}"
   [[ "$os_major" =~ ^[0-9]+$ ]] && [[ "$os_major" -ge 15 ]] || die 'ccgo requires macOS 15 or later.'
-  version=0.1.1
+  version=0.1.2
   case "$(uname -m)" in
     arm64)
       architecture=arm64
-      expected=5b32adc7c3020f8001122002738a73517ccf8563aace9114b093586259ef6f81
-      encrypted_expected=c3bc161c9ceeee8451ad307ed5d882ef55c498f21f4f2f23ff4bde8f24387578
+      expected=4778eed157efcc6845a92399222028ec78fa3461b6de9a0a212d844efed3a516
+      encrypted_expected=dbed026612364591a98ba6ec3394c2cd93cec2ca0308e8feddfabac7a24c40a7
       ;;
     x86_64)
       architecture=amd64
-      expected=1b92a284ba05b6fe1e8bec52918f1923f11a9895aeae5c3b1606a208bbe6853c
-      encrypted_expected=840400c63bd98d6901bf78bf5a448a7dfdce2b4267c8f8bd8d287ca854746d62
+      expected=d002a228e008da96b7a7e94cd7bb94a64964a91df80709d48c2eb3077926c81c
+      encrypted_expected=957e2ed724b6e27f8e014cb87c1cafc021ccaab6ff63b8cadfdbb34c5127591b
       ;;
     *) die 'Unsupported Mac architecture.' ;;
   esac
