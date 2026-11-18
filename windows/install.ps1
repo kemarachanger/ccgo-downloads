@@ -1,4 +1,4 @@
-# Public password installer. The application source and node files stay private.
+# Public password installer. The application source stays private; packages hold no node.
 param([switch]$NoPath)
 & {
     $ErrorActionPreference = 'Stop'
@@ -9,7 +9,7 @@ param([switch]$NoPath)
     try { $system = Get-CimInstance Win32_OperatingSystem } catch { }
     if ($system -and $env:CCGO_TEST_ALLOW_UNSUPPORTED_SETUP -ne '1' -and ($system.ProductType -ne 1 -or [int]$system.BuildNumber -lt 22000)) { throw 'ccgo needs Windows 11.' }
     $feed = 'https://raw.githubusercontent.com/kemarachanger/ccgo-downloads/main/updates/windows-amd64.json'
-    $expectedManifestHash = 'e3d00c7d9cd6fba636d515405711ee378286ddcf8d9de60c9cca5abe89c1e474'
+    $expectedManifestHash = '7335d446f68f76c389393a3323113411b1c697cf8f9891b2fa7e053c29dccab6'
     $work = Join-Path ([IO.Path]::GetTempPath()) ('ccgo-download-' + [Guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $work | Out-Null
     $password = $null
@@ -56,10 +56,14 @@ param([switch]$NoPath)
         $start.Arguments = '__install "' + $bundle + '"'
         $start.UseShellExecute = $false
         $start.RedirectStandardInput = $true
+        # __install prints the closing line: without a node, that line says to
+        # set the node first. It is shown last; errors go to the console directly.
+        $start.RedirectStandardOutput = $true
         $process = [Diagnostics.Process]::Start($start)
         $process.StandardInput.WriteLine($password)
         $process.StandardInput.Close()
         $password = $null
+        $installed = $process.StandardOutput.ReadToEnd()
         $process.WaitForExit()
         if ($process.ExitCode -ne 0) { throw 'Installation failed. Run the install command again.' }
         $bin = Join-Path $env:LOCALAPPDATA 'ccgo\bin'
@@ -68,7 +72,8 @@ param([switch]$NoPath)
             if (-not (@($userPath -split ';') | Where-Object { $_.TrimEnd('\') -ieq $bin.TrimEnd('\') })) { [Environment]::SetEnvironmentVariable('Path',($bin + ';' + $userPath).TrimEnd(';'),'User') }
             if (-not (@($env:PATH -split ';') | Where-Object { $_.TrimEnd('\') -ieq $bin.TrimEnd('\') })) { $env:PATH = $bin + ';' + $env:PATH }
         }
-        Write-Output 'ccgo | Ready. Run ccgo in a project folder.'
+        $closing = @($installed -split '\r?\n' | Where-Object { $_ -like 'ccgo | *' }) | Select-Object -Last 1
+        Write-Output $closing
     } finally {
         $password = $null
         $resolvedWork = [IO.Path]::GetFullPath($work)

@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "platform": "windows-amd64",
-  "url": "https://github.com/kemarachanger/ccgo-downloads/releases/download/v0.3.0/ccgo-0.3.0-windows-amd64.zip.enc",
-  "encrypted_sha256": "2fa8d89f3d7fe43d5ca85f410ccd9330a1012fb0b2b04e76d108ebc52b860926",
-  "sha256": "32da288a2086b48db6d52dbc5d95e82bd70a9316b7e8e4a4962e6f178c464b03",
+  "url": "https://github.com/kemarachanger/ccgo-downloads/releases/download/v0.4.0/ccgo-0.4.0-windows-amd64.zip.enc",
+  "encrypted_sha256": "b59d22183553acd19587e2ea0810b014277b63fcfeab5484c31cd17068f5205a",
+  "sha256": "24aec582cf03efc8fb28788f1117075c4351912bc9f24518e414ef81e7278e2a",
   "format": "zip"
 }
