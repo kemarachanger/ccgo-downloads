@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "version": "0.4.3",
+  "version": "0.4.4",
   "platform": "darwin-arm64",
-  "url": "https://github.com/kemarachanger/ccgo-downloads/releases/download/v0.4.3/ccgo-0.4.3-darwin-arm64.tar.gz.enc",
-  "encrypted_sha256": "03e13879ad2c22e1f05872a202c4afaa3da9a61e49b4e0de993ef96363951bd5",
-  "sha256": "ae235dda856b1591f8e54ee73a6df0b4b402e8516f4184652ceb57b8fbf096a1",
+  "url": "https://github.com/kemarachanger/ccgo-downloads/releases/download/v0.4.4/ccgo-0.4.4-darwin-arm64.tar.gz.enc",
+  "encrypted_sha256": "23ccef8dadc18a165318441f5b04173af0b399342d611abb7612109ca6f46d2a",
+  "sha256": "6fa263fef23269b6dc0377c1f9142008db7595f8ef356cd743cd35fcd00cf51a",
   "format": "tar.gz"
 }
