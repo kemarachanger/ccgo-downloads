@@ -33,10 +33,10 @@ ccgo_download_install() (
   # This reports the hardware, including in a Rosetta terminal.
   [[ "$(PATH="$PATH:/usr/sbin" sysctl -n hw.optional.arm64 2>/dev/null || true)" == 1 ]] || die 'ccgo needs a Mac with Apple silicon.'
   # scripts/release.py rewrites these values together. Published assets are immutable.
-  version=0.4.4
+  version=0.4.5
   architecture=arm64
-  expected=6fa263fef23269b6dc0377c1f9142008db7595f8ef356cd743cd35fcd00cf51a
-  encrypted_expected=23ccef8dadc18a165318441f5b04173af0b399342d611abb7612109ca6f46d2a
+  expected=32123a563f6d05af8b28344b7460c4be2f4f6d176ff78fb148dc24713cff68f6
+  encrypted_expected=1b85d63c2407ea40273a9ac7311d6e9a178e1170f12fc2fb654559ea60bd07ef
   endpoint="https://github.com/kemarachanger/ccgo-downloads/releases/download/v$version/ccgo-$version-darwin-$architecture.tar.gz.enc"
   # Decrypted files stay inside ccgo's private releases folder, which Claude
   # sessions cannot read, rather than in a shared temporary folder.
@@ -70,7 +70,6 @@ ccgo_download_install() (
   if ! printf '%s\n' "$password" | /usr/bin/openssl enc -d -aes-256-cbc -pbkdf2 -iter 1000000 -md sha256 -pass stdin -in "$encrypted" -out "$archive" 2>/dev/null; then
     die 'Incorrect download password. Installation stopped.'
   fi
-  password=''
   actual="$(shasum -a 256 "$archive")"
   [[ "${actual%% *}" == "$expected" ]] || die 'Incorrect password or package checksum mismatch. Installation stopped.'
   printf 'ccgo | Package verified; installing\n'
@@ -79,7 +78,15 @@ ccgo_download_install() (
   bundle="$work/ccgo-$version-darwin-$architecture"
   [[ -f "$bundle/install.sh" && ! -L "$bundle/install.sh" ]] || die 'Package installer is missing.'
   [[ "$(cat "$bundle/VERSION" 2>/dev/null)" == "$version" && "$(cat "$bundle/ARCH" 2>/dev/null)" == "$architecture" ]] || die 'Package version or architecture does not match.'
-  /bin/bash "$bundle/install.sh"
+  # Its closing line, which names the next step, is shown last.
+  closing="$(/bin/bash "$bundle/install.sh")"
+  # The installed ccgo keeps the password for ccgo self-update, read from a
+  # pipe as above. The installation stands without it; updates then ask.
+  if ! printf '%s\n' "$password" | "$base/current/ccgo" __save-download-password >/dev/null 2>&1; then
+    printf 'ccgo | The download password was not saved; ccgo self-update will ask for it.\n' >&2
+  fi
+  password=''
+  printf '%s\n' "$closing"
   completed=1
 )
 
