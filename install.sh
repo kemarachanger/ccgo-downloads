@@ -33,10 +33,10 @@ ccgo_download_install() (
   # This reports the hardware, including in a Rosetta terminal.
   [[ "$(PATH="$PATH:/usr/sbin" sysctl -n hw.optional.arm64 2>/dev/null || true)" == 1 ]] || die 'ccgo needs a Mac with Apple silicon.'
   # scripts/release.py rewrites these values together. Published assets are immutable.
-  version=0.4.5
+  version=0.4.6
   architecture=arm64
-  expected=32123a563f6d05af8b28344b7460c4be2f4f6d176ff78fb148dc24713cff68f6
-  encrypted_expected=1b85d63c2407ea40273a9ac7311d6e9a178e1170f12fc2fb654559ea60bd07ef
+  expected=0a6ed5bf4eae3cbc5b511672469fa8ab9d647c418ccc6eb5bdf485e8cfccaa44
+  encrypted_expected=c8b2572fba9da47b458396fb5ac4ea5f1cc9ed90afb8595df1f3db69a7770df3
   endpoint="https://github.com/kemarachanger/ccgo-downloads/releases/download/v$version/ccgo-$version-darwin-$architecture.tar.gz.enc"
   # Decrypted files stay inside ccgo's private releases folder, which Claude
   # sessions cannot read, rather than in a shared temporary folder.
