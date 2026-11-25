@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "version": "0.6.0",
+  "platform": "linux-amd64",
+  "url": "https://github.com/kemarachanger/ccgo-downloads/releases/download/v0.6.0/ccgo-0.6.0-linux-amd64.tar.gz.enc",
+  "encrypted_sha256": "178912308b56ecca32335e2d094301fdadac346899c463fce3ba22ffd247f2dd",
+  "sha256": "1c6e77acec8d0d5e198afc1cd568fa482e238df198da4211396314feff7c90a8",
+  "format": "tar.gz"
+}
